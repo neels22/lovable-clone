@@ -101,6 +101,6 @@ graph.add_conditional_edges(
 graph.set_entry_point("planner")
 agent = graph.compile()
 if __name__ == "__main__":
-    result = agent.invoke({"user_prompt": "Build a colourful modern todo app in html css and js"},
+    result = agent.invoke({"user_prompt": "Build a colourful modern calculator app in html css and js"},
                           {"recursion_limit": 100})
     print("Final State:", result)
