@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ColorfulTodo</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>ColorfulTodo</h1>
+        <label for="theme-select" class="visually-hidden">Select Theme</label>
+        <select id="theme-select" aria-label="Select Theme">
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+            <option value="colorful">Colorful</option>
+        </select>
+    </header>
+    <section aria-labelledby="new-task-section">
+        <h2 id="new-task-section" class="visually-hidden">Add New Task</h2>
+        <input type="text" id="new-task-input" placeholder="What needs to be done?" autocomplete="off" aria-label="New task input">
+        <button id="add-task-btn" aria-label="Add task">Add</button>
+    </section>
+    <main>
+        <ul id="task-list" class="task-list" aria-live="polite" aria-label="Task list"></ul>
+    </main>
+    <footer>
+        <div class="filters" role="group" aria-label="Task filters">
+            <button class="filter-btn" data-filter="all" aria-pressed="true">All</button>
+            <button class="filter-btn" data-filter="active" aria-pressed="false">Active</button>
+            <button class="filter-btn" data-filter="completed" aria-pressed="false">Completed</button>
+        </div>
+        <button id="clear-completed" aria-label="Clear completed tasks">Clear completed</button>
+    </footer>
+</body>
+</html>

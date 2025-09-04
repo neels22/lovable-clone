@@ -1,0 +1,330 @@
+/*
+  styles.css – Base styling and theming for ColorfulTodo
+  ----------------------------------------------------
+  This stylesheet defines:
+    • CSS custom properties (variables) for colors, spacing, fonts.
+    • Theme classes (.theme-light, .theme-dark, .theme-colorful) that override the variables.
+    • Layout styles using Flexbox/Grid for a clean, modern UI.
+    • Responsive breakpoints for mobile (<600px) and desktop.
+    • UI transitions for task addition/removal, button hovers, and drag‑and‑drop placeholders.
+    • Visual states for completed tasks and active filter buttons.
+
+  All class names and IDs correspond to those defined in index.html, allowing script.js
+  to toggle classes and attributes without modification.
+*/
+
+/* -------------------------------------------------- */
+/*                     Variables                     */
+/* -------------------------------------------------- */
+:root {
+  /* Primary palette – light theme defaults */
+  --bg-color: #f5f5f5;
+  --primary-color: #ffffff;      /* Card / input background */
+  --accent-color: #6200ee;       /* Buttons, highlights */
+  --text-color: #212121;
+  --muted-text-color: #757575;
+  --border-radius: 0.5rem;
+  --spacing-unit: 1rem;
+  --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --transition-duration: 0.3s;
+}
+
+/* -------------------------------------------------- */
+/*                     Themes                        */
+/* -------------------------------------------------- */
+.theme-light {
+  --bg-color: #f5f5f5;
+  --primary-color: #ffffff;
+  --accent-color: #6200ee;
+  --text-color: #212121;
+  --muted-text-color: #757575;
+}
+
+.theme-dark {
+  --bg-color: #121212;
+  --primary-color: #1e1e1e;
+  --accent-color: #bb86fc;
+  --text-color: #e0e0e0;
+  --muted-text-color: #b0b0b0;
+}
+
+.theme-colorful {
+  /* A vibrant, colorful theme */
+  --bg-color: #fffbf0;
+  --primary-color: #ffffff;
+  --accent-color: #ff6f61;   /* coral */
+  --text-color: #333333;
+  --muted-text-color: #555555;
+}
+
+/* -------------------------------------------------- */
+/*                     Global                        */
+/* -------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  background: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--font-family);
+  line-height: 1.5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--spacing-unit);
+}
+
+header {
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-unit);
+}
+
+header h1 {
+  font-size: 1.8rem;
+  color: var(--accent-color);
+}
+
+/* Visually hidden utility – already used in HTML */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* -------------------------------------------------- */
+/*                     Input Section                  */
+/* -------------------------------------------------- */
+section {
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  gap: var(--spacing-unit);
+  margin-bottom: var(--spacing-unit);
+}
+
+#new-task-input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--muted-text-color);
+  border-radius: var(--border-radius);
+  background: var(--primary-color);
+  color: var(--text-color);
+  font-size: 1rem;
+  transition: border-color var(--transition-duration) ease;
+}
+
+#new-task-input:focus {
+  outline: none;
+  border-color: var(--accent-color);
+}
+
+#add-task-btn {
+  padding: 0.75rem 1.5rem;
+  background: var(--accent-color);
+  color: #fff;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background var(--transition-duration) ease, transform var(--transition-duration) ease;
+}
+
+#add-task-btn:hover {
+  background: darken(var(--accent-color), 10%);
+  transform: translateY(-2px);
+}
+
+/* -------------------------------------------------- */
+/*                     Main / Task List               */
+/* -------------------------------------------------- */
+main {
+  width: 100%;
+  max-width: 800px;
+  flex: 1;
+}
+
+.task-list {
+  list-style: none;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.task-list li {
+  background: var(--primary-color);
+  padding: 0.75rem 1rem;
+  border-radius: var(--border-radius);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  transition: opacity var(--transition-duration) ease, transform var(--transition-duration) ease, background var(--transition-duration) ease;
+}
+
+/* Placeholder for drag‑and‑drop (script can add .drag-placeholder) */
+.drag-placeholder {
+  border: 2px dashed var(--accent-color);
+  background: transparent;
+  min-height: 3rem;
+}
+
+/* Completed task styling */
+.completed {
+  text-decoration: line-through;
+  opacity: 0.6;
+  color: var(--muted-text-color);
+}
+
+/* -------------------------------------------------- */
+/*                     Footer / Filters                */
+/* -------------------------------------------------- */
+footer {
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: var(--spacing-unit);
+  padding-top: var(--spacing-unit);
+  border-top: 1px solid var(--muted-text-color);
+}
+
+.filters {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.filter-btn {
+  background: transparent;
+  border: 1px solid var(--muted-text-color);
+  color: var(--text-color);
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background var(--transition-duration) ease, color var(--transition-duration) ease;
+}
+
+.filter-btn[aria-pressed="true"],
+.filter-btn.active {
+  background: var(--accent-color);
+  color: #fff;
+  border-color: var(--accent-color);
+}
+
+#clear-completed {
+  background: transparent;
+  border: none;
+  color: var(--accent-color);
+  cursor: pointer;
+  font-size: 0.9rem;
+  text-decoration: underline;
+}
+
+#clear-completed:hover {
+  opacity: 0.8;
+}
+
+/* -------------------------------------------------- */
+/*                     Responsive                     */
+/* -------------------------------------------------- */
+@media (max-width: 599px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  section {
+    flex-direction: column;
+  }
+
+  #add-task-btn {
+    width: 100%;
+  }
+
+  footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+}
+
+@media (min-width: 600px) {
+  header h1 {
+    font-size: 2rem;
+  }
+
+  #new-task-input,
+  #add-task-btn {
+    font-size: 1rem;
+  }
+}
+
+/* -------------------------------------------------- */
+/*                     Animations                     */
+/* -------------------------------------------------- */
+.task-list li {
+  opacity: 0;
+  transform: translateY(-10px);
+  animation: slideIn var(--transition-duration) forwards;
+}
+
+@keyframes slideIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* When a task is removed, script can add .removing class */
+.task-list li.removing {
+  animation: slideOut var(--transition-duration) forwards;
+}
+
+@keyframes slideOut {
+  to {
+    opacity: 0;
+    transform: translateY(10px);
+    height: 0;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+/* -------------------------------------------------- */
+/*                     Select Theme                    */
+/* -------------------------------------------------- */
+#theme-select {
+  padding: 0.4rem 0.6rem;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--muted-text-color);
+  background: var(--primary-color);
+  color: var(--text-color);
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+#theme-select:focus {
+  outline: none;
+  border-color: var(--accent-color);
+}
